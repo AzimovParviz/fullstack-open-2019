@@ -10,23 +10,7 @@ const Statistics = (props) => {
 }
 
 const App = () => {
-    // save clicks of each button to own state
-    
-const Statistics = () => {
-    return(
-	    <div>
-	    <h1>statistics</h1>
-	    <p>good {good}</p>
-	    <p>neutral {neutral}</p>
-	    <p>bad {bad}</p>
-	    <p>all {all}</p>
-	    <p>average {average}</p>
-	    <p>positive {positive} %</p>
-	    
-	    
-	    </div>
-    )
-}
+  // save clicks of each button to own state
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
@@ -59,8 +43,13 @@ const Statistics = () => {
 	      	      setAll(all +1)
 	  }
 			  }>bad</button>
-
-	  <Statistics  />
+	  <h1>statistics</h1>
+	  <Statistics name={'good'} num={good} />
+	  <Statistics name={'neutral'} num={neutral} />
+	  <Statistics name={'bad'} num={bad} />
+	  <Statistics name={'all'} num={all} />
+	  <Statistics name={'average'} num={average} />
+	  <Statistics name={'positive'} num={positive} extra={'%'}/>
 	  
 	  
     </div>
