@@ -1,2 +1,3 @@
 1. I already accidentally made step2 while making step1 in part1, remember that
 2. in step4 don't forget to change the Total component to accept array as well
+3. use cp -a instead of cp -r because symlinks are not saved when using -r, resulting in a broken start script lmao fuck node desu

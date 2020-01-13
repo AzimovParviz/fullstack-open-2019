@@ -18,7 +18,11 @@ const Content = (course) => {
 	ret +=  array[i].name +' '+ array[i].exercises+ '\r\n'
 	//ret.write("</br>")
     }
-    return(<p>{ret}</p>)
+    return(
+	    <div>
+	    <p>{ret}</p>
+	    </div>
+    )
 	
 }  
 
