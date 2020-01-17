@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 /*const rows = (props) => props.props.persons.map(person =>
 				   <li key={person.id}>{person.name} {person.number}</li>)*/
@@ -36,25 +37,38 @@ const Persons = (props) => {
 }
 
 const App = (props) => {
-    const [ persons, setPersons] = useState(props.persons)
+    const [ persons, setPersons] = useState([])
     const [ newName, setNewName ] = useState('add...')
     const [ newNumber, setNewNumber ] = useState('type...')
+    
+    const hook = () => {
+	console.log('effect')
+	axios.get('http://localhost:3001/persons')
+	    .then(response => {
+		console.log('promise fullfiled')
+		setPersons(response.data)
+	    })
+    }
+
+    useEffect(hook, [])
+
+    
     const rows = () => {
 	const smt = () => persons.map(person =>
 				      <li key={person.id}>{person.name} {person.number}</li>)
 	return smt
     }
 
-	const addName = (event) => {
-	    event.preventDefault()	
-	    const nameObject = {
-		id: persons.length+1,
-		name: newName,
-		number: newNumber,	    
-		date: new Date().toISOString()
-	    }
-	    
-	    var found = false;
+    const addName = (event) => {
+	event.preventDefault()	
+	const nameObject = {
+	    id: persons.length+1,
+	    name: newName,
+	    number: newNumber,	    
+	    date: new Date().toISOString()
+	}
+	
+	var found = false;
 	for(var i = 0; i < persons.length; i++) {
 	    if (persons[i].name == newName) {
 		found = true;
@@ -67,14 +81,14 @@ const App = (props) => {
 		break;
 	    }
 	}
-	    console.log(persons)
-	    if(!found) {
-	    setPersons(persons.concat(nameObject))
-		setNewName('')
-		setNewNumber('')
-	    }
-	    
+	console.log(persons)
+	if(!found) {
+		setPersons(persons.concat(nameObject))
+	    setNewName('')
+	    setNewNumber('')
 	}
+	
+    }
     
     
     const handleNameChange = (event) => {
