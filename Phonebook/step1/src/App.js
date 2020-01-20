@@ -40,7 +40,7 @@ const App = (props) => {
     const [ persons, setPersons] = useState([])
     const [ newName, setNewName ] = useState('add...')
     const [ newNumber, setNewNumber ] = useState('type...')
-    
+
     const hook = () => {
 	console.log('effect')
 	axios.get('http://localhost:3001/persons')
