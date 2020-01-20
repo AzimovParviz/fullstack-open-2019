@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": 1
-    },
-    {
       "name": "Ada Lovelace",
       "number": "39-44-5323523",
       "id": 2
@@ -27,10 +22,10 @@
       "date": "2020-01-20T07:26:16.970Z"
     },
     {
-      "id": 6,
-      "name": "1add...",
-      "number": "1type...",
-      "date": "2020-01-20T07:36:20.195Z"
+      "id": 7,
+      "name": "Rami Malek",
+      "number": "+35844884498",
+      "date": "2020-01-20T08:30:54.859Z"
     }
   ]
 }

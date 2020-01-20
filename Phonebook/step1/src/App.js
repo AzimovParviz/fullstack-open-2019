@@ -41,16 +41,15 @@ const App = (props) => {
     const [ newName, setNewName ] = useState('add...')
     const [ newNumber, setNewNumber ] = useState('type...')
 
-    const deleteNumber = id => {}
-    /*const hook = () => {
-	console.log('effect')
-	axios.get('http://localhost:3001/persons')
-	    .then(response => {
-		console.log('promise fullfiled')
-		setPersons(response.data)
-	    })
-            }*/
-    
+    const deletePersons = id => {
+        const person = persons.find(p => p.id === id)        
+
+        personsService
+            .remove(id)
+            .then(removedPerson => {
+                setPersons(persons.map(person => person.id !== id ? person : removedPerson))
+            })
+    }       
 
     useEffect(()=> {
         personsService.getAll()
@@ -61,7 +60,10 @@ const App = (props) => {
     
     const rows = () => {
 	const smt = () => persons.map(person =>
-				      <li key={person.id}>{person.name} {person.number}</li>)
+				      <li key={person.id}>
+                                        {person.name} {person.number}
+                                        <button onClick={()=>deletePersons(person.id)}>delete</button>
+                                      </li>)
 	return smt
     }
 
