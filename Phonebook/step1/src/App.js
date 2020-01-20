@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import personsService from './services/persons.js'
 
 /*const rows = (props) => props.props.persons.map(person =>
 				   <li key={person.id}>{person.name} {person.number}</li>)*/
@@ -41,17 +41,23 @@ const App = (props) => {
     const [ newName, setNewName ] = useState('add...')
     const [ newNumber, setNewNumber ] = useState('type...')
 
-    const hook = () => {
+    const deleteNumber = id => {}
+    /*const hook = () => {
 	console.log('effect')
 	axios.get('http://localhost:3001/persons')
 	    .then(response => {
 		console.log('promise fullfiled')
 		setPersons(response.data)
 	    })
-    }
+            }*/
+    
 
-    useEffect(hook, [])
-
+    useEffect(()=> {
+        personsService.getAll()
+            .then(initialPersons => {
+                setPersons(initialPersons)
+            })
+    }, [])
     
     const rows = () => {
 	const smt = () => persons.map(person =>
@@ -87,9 +93,11 @@ const App = (props) => {
 	    /*setPersons(persons.concat(nameObject))
 	    setNewName('')
 	    setNewNumber('')*/
-            axios.post('http://localhost:3001/persons', nameObject)
-                .then(response => {
-                    setPersons(persons.concat(response.data))
+            
+            personsService
+                .create(nameObject)
+                .then(returnedPerson => {
+                    setPersons(persons.concat(returnedPerson))
                     setNewName('')
                 })
 	}
