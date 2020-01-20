@@ -82,10 +82,16 @@ const App = (props) => {
 	    }
 	}
 	console.log(persons)
+        
 	if(!found) {
-		setPersons(persons.concat(nameObject))
+	    /*setPersons(persons.concat(nameObject))
 	    setNewName('')
-	    setNewNumber('')
+	    setNewNumber('')*/
+            axios.post('http://localhost:3001/persons', nameObject)
+                .then(response => {
+                    setPersons(persons.concat(response.data))
+                    setNewName('')
+                })
 	}
 	
     }
