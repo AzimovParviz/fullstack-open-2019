@@ -3,6 +3,17 @@ import personsService from './services/persons.js'
 
 /*const rows = (props) => props.props.persons.map(person =>
 				   <li key={person.id}>{person.name} {person.number}</li>)*/
+const Notification = ({message}) => {
+    if (message===null) {
+        return null
+    }
+
+    return(
+        <div className="error">
+        {message}
+        </div>
+    )
+}
 
 const Form = (props) => {
 
@@ -23,7 +34,6 @@ const Form = (props) => {
     
 }
 
-
 const Persons = (props) => {
     //this.props.bind(this)
     return(
@@ -40,10 +50,9 @@ const App = (props) => {
     const [ persons, setPersons] = useState([])
     const [ newName, setNewName ] = useState('add...')
     const [ newNumber, setNewNumber ] = useState('type...')
+    const [ errorMessage, setErrorMessage ] = useState('sometin good? happen...')
 
-    const deletePersons = id => {
-        const person = persons.find(p => p.id === id)        
-
+    const deletePersons = id => {        
         personsService
             .remove(id)
             .then(removedPerson => {
@@ -80,12 +89,12 @@ const App = (props) => {
 	for(var i = 0; i < persons.length; i++) {
 	    if (persons[i].name == newName) {
 		found = true;
-		alert('${newName} already exists smh')
+		setErrorMessage('${newName} already exists smh')
 		break;
 	    }
 	    if (persons[i].number === newNumber) {
 		found = true;
-		alert('${newNumber} haz already exists smh')
+		setErrorMessage('${newNumber} haz already exists smh')
 		break;
 	    }
 	}
@@ -101,6 +110,7 @@ const App = (props) => {
                 .then(returnedPerson => {
                     setPersons(persons.concat(returnedPerson))
                     setNewName('')
+                    setErrorMessage(`${newName} has been added`)
                 })
 	}
 	
@@ -120,7 +130,8 @@ const App = (props) => {
     console.log(props)
     return (
 	    <div>
-	    <h2>Phonebook</h2>
+	      <h2>Phonebook</h2>
+              <Notification message={errorMessage}/>
 	    <Form onSubmit={addName} newName={newName} newNumber={newNumber} handleName = {handleNameChange} handleNumber = {handleNumberChange} />
 	    <Persons props={rows()} />
 	</div>
